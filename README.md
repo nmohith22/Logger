@@ -1,5 +1,5 @@
 
-# Logger
+# [Logger] (https://nmohith22.github.io/Logger/)
 
 Logger is a web application that allows users to create, manage, and track tasks. Users can add tasks with descriptions or drawings, update tally marks for each task, and delete tasks as needed. The application is built primarily on React.
 
