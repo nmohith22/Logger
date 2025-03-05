@@ -1,19 +1,87 @@
 html, body {
     height: 100%;
     margin: 0;
-    padding: 0;
-}
-.task-list-container { 
+    padding: 10;
+  }
+  
+  .fixed-button-container {
+    position: sticky;
+    top: 0;
+    
+    padding: 10px;
+    z-index: 1000;
+  }
+  
+  .task-list-container { 
     display: flex;
     flex-direction: column;
-    height: calc(100% - 150px); 
+    height: calc(100% - 150px);
+    width: calc(100% - 50px); 
     overflow-y: auto; 
     padding: 10px; 
     margin-top: 10px;
-    color: rgb(200, 155, 97)}
-
-.tally-marks-container {
+    color: rgb(200, 155, 97);
+    align-self: center;
+  }
+  
+  .task-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: rgb(158, 110, 52);
+  }
+  
+  .task-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 20px;
+    flex-wrap: wrap;
+    gap: 0.1rem;
+    max-width: 100%;
+  }
+  
+  .task-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .task-middle {
+    flex-grow: 1;
+    margin-right: 20px;
+  }
+  
+  .task-description {
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .task-drawing {
+    width: 100%;
+    height: auto;
+  }
+  
+  .task-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .tally-marks-container {
     display: flex;
     flex-wrap: wrap;
     gap: 0.1rem;
-}
+    max-width: 80%;
+    overflow-x: auto;
+  }
+
+  .task-title {
+    color: blanchedalmond;
+  }
+
+  .task-description-text {
+    color:blanchedalmond;
+  }
