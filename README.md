@@ -40,7 +40,7 @@ Click the "Delete" button to remove a task.
 
 
 ## Future Additions
-
+- FIXING SIZE OF CANVAS (Right now, way too big - must be cut down)
 - Better UI (More rounded and bubbly looking)
 - Wall of notes mode 
 - Server storage
