@@ -1,0 +1,32 @@
+
+.canvasWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.canvasElement {
+  border: 1px solid black;
+  width: 400px;
+  height: 400px;
+}
+
+.controls {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.controls label {
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.controls input[type="color"],
+.controls input[type="range"] {
+  margin-left: 4px;
+}
+
+.controls button {
+  margin-right: 12px;
+}

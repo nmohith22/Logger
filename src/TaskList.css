@@ -6,8 +6,7 @@ html, body {
   
   .fixed-button-container {
     position: sticky;
-    top: 0;
-    
+    top: 0;  
     padding: 10px;
     z-index: 1000;
   }
@@ -15,7 +14,10 @@ html, body {
   .task-list-container { 
     display: flex;
     flex-direction: column;
-    height: calc(100% - 150px);
+    max-height: 66vh;
+    flex: 1;
+    overflow-y: auto;
+    height: calc(100% - 145px);
     width: calc(100% - 50px); 
     overflow-y: auto; 
     padding: 10px; 

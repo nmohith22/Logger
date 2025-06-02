@@ -1,0 +1,35 @@
+.dialogOverlay {
+  position: fixed;
+  inset: 0;                   
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.dialogContent {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(199, 153, 153, 0.649);
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 90vw;
+  max-height: 85vh;
+  overflow-y: auto;           
+  z-index: 1001;
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.dialogCloseButton {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.noScroll {
+  overflow: hidden;
+}

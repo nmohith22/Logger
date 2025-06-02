@@ -1,70 +1,107 @@
-import React from "react";
-import Modal from 'react-modal'
-import { useState } from "react";
-import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, DialogClose } from '@radix-ui/react-dialog';
+import React, { useEffect, useState } from "react";
+import {
+  Dialog,
+  DialogPortal,
+  DialogOverlay,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from "@radix-ui/react-dialog";
 import Canvas from "./canvas";
+import "./ModalWindow.css";
 
-Modal.setAppElement('#root')
+const ModalWindow = ({ isOpen, onRequestClose, createTask }) => {
+  const [taskName, setTaskName] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
+  const [useCanvas, setUseCanvas] = useState(false);
 
-const ModalWindow = ({isOpen, onRequestClose, createTask}) => {
-    const [taskName, setTaskName] = useState('')
-    const [taskDescription, setTaskDescription] = useState('')
-    const [useCanvas, setUseCanvas] = useState(false);
+  useEffect(() => {
+    const body = document.body;
+    if (isOpen) body.classList.add("noScroll");
+    else body.classList.remove("noScroll");
+    return () => body.classList.remove("noScroll");
+  }, [isOpen]);
 
-    const handleCreate = (e) => {
-        e.preventDefault()
-        if(taskName.trim()) {
-            createTask({name: taskName, description: taskDescription})
-            setTaskName('')
-            setTaskDescription('')
-            onRequestClose();
-        }
+  const handleCreate = (e) => {
+    e.preventDefault();
+    if (!taskName.trim()) return;
+
+    let description = taskDescription;
+    if (useCanvas && window.p5Instance && window.p5Instance.canvas) {
+      description = window.p5Instance.canvas.toDataURL();
     }
 
-return (
-    <Dialog asChild open={isOpen} onOpenChange={onRequestClose}>
-        
-        <DialogContent>
-            <DialogTitle>Create a New Task!</DialogTitle>
-            
-            <form onSubmit={handleCreate}>
-            <div style={{display: "flex", flexDirection: "column"}}>
+    createTask({ name: taskName, description });
+    setTaskName("");
+    setTaskDescription("");
+    onRequestClose();
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={(val) => (val ? null : onRequestClose())}>
+      <DialogPortal>
+        <DialogOverlay className="dialogOverlay" />
+        <DialogContent className="dialogContent">
+          <DialogClose asChild>
+            <button className="dialogCloseButton">✕</button>
+          </DialogClose>
+
+          <DialogTitle>Add a New Task</DialogTitle>
+          <DialogDescription>
+            Enter a name, description, or draw on the canvas.
+          </DialogDescription>
+
+          <form onSubmit={handleCreate} style={{ marginTop: "1rem" }}>
+            <div style={{ marginBottom: "1rem" }}>
+              <label>
+                Task Name:
                 <input
-                    type="text"
-                    value={taskName}
-                    onChange={(e) => setTaskName(e.target.value)}
-                    placeholder="Enter Task Name"
-                    style={{margin: 10}}
-                    required
-                    color="blue"
-                    >
-                </input>
-                <button type="button" onClick={() => setUseCanvas(!useCanvas)}>
-              {useCanvas ? "Switch to Textbox" : "Switch to Canvas"}
-            </button>
-            {useCanvas ? (
-              <Canvas setTaskDescription={setTaskDescription}/> 
-            ) : (
-              <textarea
-                type="text"
-                value={taskDescription}
-                onChange={(e) => setTaskDescription(e.target.value)}
-                placeholder="Enter Task Description"
-                style={{margin: 10}}
-                autoComplete="on"
-                rows={10}
-                cols={40}
-              />)}
+                  type="text"
+                  value={taskName}
+                  onChange={(e) => setTaskName(e.target.value)}
+                  style={{ marginLeft: "0.5rem" }}
+                  required
+                />
+              </label>
             </div>
+
+            <div style={{ marginBottom: "1rem" }}>
+              <label>
+                Use Canvas:
+                <input
+                  type="checkbox"
+                  checked={useCanvas}
+                  onChange={(e) => setUseCanvas(e.target.checked)}
+                  style={{ marginLeft: "0.5rem" }}
+                />
+              </label>
+            </div>
+
+            {useCanvas ? (
+              <Canvas setTaskDescription={setTaskDescription} />
+            ) : (
+              <div style={{ marginBottom: "1rem" }}>
+                <label>
+                  Description:
+                  <textarea
+                    value={taskDescription}
+                    onChange={(e) => setTaskDescription(e.target.value)}
+                    rows={4}
+                    cols={40}
+                    style={{ display: "block", marginTop: "0.5rem" }}
+                    required={!useCanvas}
+                  />
+                </label>
+              </div>
+            )}
+
             <button type="submit">Add Task</button>
-            </form>
-            <DialogClose asChild>
-                <button>Exit</button>
-            </DialogClose>
+          </form>
         </DialogContent>
+      </DialogPortal>
     </Dialog>
-)
+  );
+};
 
-}
-
-export default ModalWindow
+export default ModalWindow;
