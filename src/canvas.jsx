@@ -107,10 +107,11 @@ const DrawableCanvas = ({ setTaskDescription }) => {
             onChange={handleSizeChange}
           />
         </label>
-        <button onClick={toggleEraser}>
+        <button type="button" onClick={toggleEraser}>
           {isEraser ? 'Disable Eraser' : 'Eraser'}
         </button>
         <button
+          type="button"
           onClick={() => {
             if (window.p5Instance && window.p5Instance.saveDrawing) {
               window.p5Instance.saveDrawing()
